@@ -1,2 +1,0 @@
---------June 04, 2021-------- 
-A bug which cannot update the frames correctly has been addressed.
