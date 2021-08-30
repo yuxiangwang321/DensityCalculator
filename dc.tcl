@@ -1,4 +1,4 @@
-# DensityCalculator
+# DensityCalculator Version 20210830
 # file_1 file_2: need these two files for calculation
 # type : mass_xy, mass_yz, mass_xz, mass_x, mass_y, mass_z are for mass density caculation;
 #        number_xy, number_yz, number_xz, number_x, number_y, number_z are for number density caculation;
@@ -29,7 +29,7 @@ set dz [expr double($zh-$zl)/$zr]
 if {[string equal -nocase $type mass_yz]} {
 	for {set j 0} {$j<$xr} {incr j 1} {	
 		set totalMass 0.0
-		set filename [format "$type _%d_%d_%.3f_%.3f" $firstFrame $lastFrame [expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}]]
+		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Mass density on YZ plane (unit:g/cm^3)------"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
@@ -72,7 +72,7 @@ if {[string equal -nocase $type mass_yz]} {
 } elseif {[string equal -nocase $type mass_xz]} {
 	for {set j 0} {$j<$yr} {incr j 1} {	
 		set totalMass 0.0
-		set filename [format "$type _%d_%d_%.3f_%.3f" $firstFrame $lastFrame [expr {$yl+$dy*$j}] [expr {$yl+$dy*($j+1)}]]
+		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$yl+$dy*$j}] [expr {$yl+$dy*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Mass density on XZ plane (unit:g/cm^3)------"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
@@ -115,7 +115,7 @@ if {[string equal -nocase $type mass_yz]} {
 } elseif {[string equal -nocase $type mass_xy]} {
 	for {set j 0} {$j<$zr} {incr j 1} {	
 		set totalMass 0.0
-		set filename [format "$type _%d_%d_%.3f_%.3f" $firstFrame $lastFrame [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]
+		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Mass density on XY plane (unit:g/cm^3)------"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
@@ -159,7 +159,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set dy [expr {$yh-$yl}]
 	set dz [expr {$zh-$zl}]
 	set totalMass 0.0
-	set filename [format "$type _%d_%d" $firstFrame $lastFrame]
+	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Mass density on X axis (unit:g/cm^3)------"
 	puts $writefile [format "dx = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
@@ -199,7 +199,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set dx [expr {$xh-$xl}]
 	set dz [expr {$zh-$zl}]
 	set totalMass 0.0
-	set filename [format "$type _%d_%d" $firstFrame $lastFrame]
+	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Mass density on Y axis (unit:g/cm^3)------"
 	puts $writefile [format "dy = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
@@ -239,7 +239,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set dy [expr {$yh-$yl}]
 	set dx [expr {$xh-$xl}]
 	set totalMass 0.0
-	set filename [format "$type _%d_%d" $firstFrame $lastFrame]
+	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Mass density on Z axis (unit:g/cm^3)------"
 	puts $writefile [format "dz = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
@@ -278,7 +278,7 @@ if {[string equal -nocase $type mass_yz]} {
 } elseif {[string equal -nocase $type number_yz]} {
 	for {set j 0} {$j<$xr} {incr j 1} {	
 		set totalNumber 0
-		set filename [format "$type _%d_%d_%.3f_%.3f" $firstFrame $lastFrame [expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}]]
+		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Number density on YZ plane (unit:/nm^3)------"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
@@ -320,7 +320,7 @@ if {[string equal -nocase $type mass_yz]} {
 } elseif {[string equal -nocase $type number_xz]} {
 	for {set j 0} {$j<$xr} {incr j 1} {	
 		set totalNumber 0
-		set filename [format "$type _%d_%d_%.3f_%.3f" $firstFrame $lastFrame [expr {$yl+$dy*$j}] [expr {$yl+$dy*($j+1)}]]
+		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$yl+$dy*$j}] [expr {$yl+$dy*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Number density on XZ plane (unit:/nm^3)------"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
@@ -362,7 +362,7 @@ if {[string equal -nocase $type mass_yz]} {
 } elseif {[string equal -nocase $type number_xy]} {
 	for {set j 0} {$j<$zr} {incr j 1} {	
 		set totalNumber 0
-		set filename [format "$type _%d_%d_%.3f_%.3f" $firstFrame $lastFrame [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]
+		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Number density on XY plane (unit:/nm^3)------"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
@@ -405,7 +405,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set dy [expr {$yh-$yl}]
 	set dz [expr {$zh-$zl}]
 	set totalNumber 0
-	set filename [format "$type _%d_%d" $firstFrame $lastFrame]
+	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Number density on X axis (unit:/nm^3)------"
 	puts $writefile [format "dx = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
@@ -444,7 +444,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set dx [expr {$xh-$xl}]
 	set dz [expr {$zh-$zl}]
 	set totalNumber 0
-	set filename [format "$type _%d_%d" $firstFrame $lastFrame]
+	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Number density on Y axis (unit:/nm^3)------"
 	puts $writefile [format "dy = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
@@ -483,7 +483,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set dy [expr {$yh-$yl}]
 	set dx [expr {$xh-$xl}]
 	set totalNumber 0
-	set filename [format "$type _%d_%d" $firstFrame $lastFrame]
+	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Number density on Z axis (unit:/nm^3)------"
 	puts $writefile [format "dz = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \

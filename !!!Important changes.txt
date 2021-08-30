@@ -1,0 +1,32 @@
+June 10, 2021
+A bug which cannot update the frames correctly was addressed.
+
+
+August 30, 2021
+To facilitate the bulk calculations of files with different names, slight changes have been made to the code. Now it can execute bulk commands shown below:
+	source dc.tcl
+	dc bc_ingress.psf bc_ingress.dcd number_x 0 0 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc bc_ingress.psf bc_ingress.dcd number_x 11 11 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc bc_ingress.psf bc_ingress.dcd number_x 1011 1011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc bc_ingress.psf bc_ingress.dcd number_x 2011 2011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc bc_ingress.psf bc_ingress.dcd number_x 3011 3011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc bc_ingress.psf bc_ingress.dcd number_x 4011 4011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc bc_ingress.psf bc_ingress.dcd number_x 5011 5011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L0.psf L0.dcd number_x 0 0 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L0.psf L0.dcd number_x 11 11 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L0.psf L0.dcd number_x 1011 1011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L0.psf L0.dcd number_x 2011 2011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L0.psf L0.dcd number_x 3011 3011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L0.psf L0.dcd number_x 4011 4011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L0.psf L0.dcd number_x 5011 5011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L4.psf L4.dcd number_x 0 0 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L4.psf L4.dcd number_x 11 11 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L4.psf L4.dcd number_x 1011 1011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L4.psf L4.dcd number_x 2011 2011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L4.psf L4.dcd number_x 3011 3011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L4.psf L4.dcd number_x 4011 4011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	dc L4.psf L4.dcd number_x 5011 5011 1 34.62 76.50 1 23.60 62.09 1 0 72.7 1 {water}
+	
+The generated files now have names starting with the input file name, such as "bc_ingress.psf-number_x-0-0.dat", "L0_ingress.psf-number_x-0-0.dat", and "L4_ingress.psf-number_x-0-0.dat", so files won't overlap with each other.
+
+
