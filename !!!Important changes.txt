@@ -30,3 +30,6 @@ To facilitate the bulk calculations of files with different names, slight change
 The generated files now have names starting with the input file name, such as "bc_ingress.psf-number_x-0-0.dat", "L0_ingress.psf-number_x-0-0.dat", and "L4_ingress.psf-number_x-0-0.dat", so files won't overlap with each other.
 
 
+May 05, 2022
+Tips for issues
+If a file cannot be read by the code, try to change the file name, like this: trjtrajall0.lammpstrj to test.lammpstrj, sometimes the code may give error for long or unusual file names.
