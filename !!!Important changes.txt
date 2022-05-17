@@ -1,6 +1,9 @@
 *************** DensityCalculator ***************
 *************** Update information ***************
- 
+
+
+Paper link: https://www.sciencedirect.com/science/article/pii/S0010465521001442
+
 
 ~~~~~~~~~~~~~~~~~~~ June 10, 2021 ~~~~~~~~~~~~~~~~~~~
 A bug which cannot update the frames correctly was addressed.
