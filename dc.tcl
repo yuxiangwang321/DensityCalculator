@@ -21,6 +21,8 @@ if {[string equal $file_1 $file_2]} {
 	mol addfile $file_2 first $firstFrame last $lastFrame step $step waitfor all
 }
 
+#pbc wrap -all
+
 set dx [expr double($xh-$xl)/$xr]
 set dy [expr double($yh-$yl)/$yr]
 set dz [expr double($zh-$zl)/$zr]
@@ -32,6 +34,7 @@ if {[string equal -nocase $type mass_yz]} {
 		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Mass density on YZ plane (unit:g/cm^3)------"
+		puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
 		puts $writefile "xpos   ypos   zpos   massDensity"
 		puts "------Mass density on YZ plane (unit:g/cm^3)------"
@@ -42,7 +45,7 @@ if {[string equal -nocase $type mass_yz]} {
 				set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 						[expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}] [expr {$yl+$dy*$k}] \
 						[expr {$yl+$dy*($k+1)}] [expr {$zl+$dz*$m}] [expr {$zl+$dz*($m+1)}]]			
-				set selection [atomselect top "$bin and $atomSelection"]
+				set selection [atomselect top "$bin and {$atomSelection}"]
 				set sum_frame 0
 				set frameNub 0	
 				set n [molinfo top get numframes]
@@ -75,6 +78,7 @@ if {[string equal -nocase $type mass_yz]} {
 		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$yl+$dy*$j}] [expr {$yl+$dy*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Mass density on XZ plane (unit:g/cm^3)------"
+		puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
 		puts $writefile "xpos   ypos   zpos   massDensity"
 		puts "------Mass density on XZ plane (unit:g/cm^3)------"
@@ -85,7 +89,7 @@ if {[string equal -nocase $type mass_yz]} {
 				set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 						[expr {$xl+$dx*$k}] [expr {$xl+$dx*($k+1)}] [expr {$yl+$dy*$j}] \
 						[expr {$yl+$dy*($j+1)}] [expr {$zl+$dz*$m}] [expr {$zl+$dz*($m+1)}]]			
-				set selection [atomselect top "$bin and $atomSelection"]
+				set selection [atomselect top "$bin and {$atomSelection}"]
 				set sum_frame 0
 				set frameNub 0	
 				set n [molinfo top get numframes]
@@ -118,6 +122,7 @@ if {[string equal -nocase $type mass_yz]} {
 		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Mass density on XY plane (unit:g/cm^3)------"
+		puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
 		puts $writefile "xpos   ypos   zpos   massDensity"
 		puts "------Mass density on XY plane (unit:g/cm^3)------"
@@ -128,7 +133,7 @@ if {[string equal -nocase $type mass_yz]} {
 				set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 						[expr {$xl+$dx*$k}] [expr {$xl+$dx*($k+1)}] [expr {$yl+$dy*$m}] \
 						[expr {$yl+$dy*($m+1)}] [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]			
-				set selection [atomselect top "$bin and $atomSelection"]
+				set selection [atomselect top "$bin and {$atomSelection}"]
 				set sum_frame 0
 				set frameNub 0	
 				set n [molinfo top get numframes]
@@ -162,6 +167,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Mass density on X axis (unit:g/cm^3)------"
+	puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 	puts $writefile [format "dx = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
 					 zl = %.3f, zh = %.3f" $dx $xl $xh $yl $yh $zl $zh]
 	puts $writefile "xpos  massDensity"
@@ -172,7 +178,7 @@ if {[string equal -nocase $type mass_yz]} {
 	for {set j 0} {$j<$xr} {incr j 1} {
 		set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 				[expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}] $yl $yh $zl $zh]			
-		set selection [atomselect top "$bin and $atomSelection"]
+		set selection [atomselect top "$bin and {$atomSelection}"]
 		set sum_frame 0
 		set frameNub 0
 		set n [molinfo top get numframes]
@@ -202,6 +208,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Mass density on Y axis (unit:g/cm^3)------"
+	puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 	puts $writefile [format "dy = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
 					 zl = %.3f, zh = %.3f" $dy $xl $xh $yl $yh $zl $zh]
 	puts $writefile "ypos  massDensity"
@@ -212,7 +219,7 @@ if {[string equal -nocase $type mass_yz]} {
 	for {set j 0} {$j<$yr} {incr j 1} {
 		set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 				$xl $xh [expr {$yl+$dy*$j}] [expr {$yl+$dy*($j+1)}]  $zl $zh]			
-		set selection [atomselect top "$bin and $atomSelection"]
+		set selection [atomselect top "$bin and {$atomSelection}"]
 		set sum_frame 0
 		set frameNub 0
 		set n [molinfo top get numframes]
@@ -242,6 +249,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Mass density on Z axis (unit:g/cm^3)------"
+	puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 	puts $writefile [format "dz = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
 					 zl = %.3f, zh = %.3f" $dz $xl $xh $yl $yh $zl $zh]
 	puts $writefile "zpos  massDensity"
@@ -252,7 +260,7 @@ if {[string equal -nocase $type mass_yz]} {
 	for {set j 0} {$j<$zr} {incr j 1} {
 		set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 				$xl $xh $yl $yh [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]			
-		set selection [atomselect top "$bin and $atomSelection"]
+		set selection [atomselect top "$bin and {$atomSelection}"]
 		set sum_frame 0
 		set frameNub 0
 		set n [molinfo top get numframes]
@@ -281,6 +289,7 @@ if {[string equal -nocase $type mass_yz]} {
 		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Number density on YZ plane (unit:/nm^3)------"
+		puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
 		puts $writefile "xpos   ypos   zpos   numberDensity"
 		puts "------Number density on YZ plane (unit:/nm^3)------"
@@ -291,7 +300,7 @@ if {[string equal -nocase $type mass_yz]} {
 				set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 						[expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}] [expr {$yl+$dy*$k}] \
 						[expr {$yl+$dy*($k+1)}] [expr {$zl+$dz*$m}] [expr {$zl+$dz*($m+1)}]]			
-				set selection [atomselect top "$bin and $atomSelection"]
+				set selection [atomselect top "$bin and {$atomSelection}"]
 				set sum_frame 0
 				set frameNub 0	
 				set n [molinfo top get numframes]
@@ -318,11 +327,12 @@ if {[string equal -nocase $type mass_yz]} {
 	
 # ------Number density on XZ plane (unit:/nm^3)------
 } elseif {[string equal -nocase $type number_xz]} {
-	for {set j 0} {$j<$xr} {incr j 1} {	
+	for {set j 0} {$j<$yr} {incr j 1} {	
 		set totalNumber 0
 		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$yl+$dy*$j}] [expr {$yl+$dy*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Number density on XZ plane (unit:/nm^3)------"
+		puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
 		puts $writefile "xpos   ypos   zpos   numberDensity"
 		puts "------Number density on XZ plane (unit:/nm^3)------"
@@ -333,7 +343,7 @@ if {[string equal -nocase $type mass_yz]} {
 				set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 						[expr {$xl+$dx*$k}] [expr {$xl+$dx*($k+1)}] [expr {$yl+$dy*$j}] \
 						[expr {$yl+$dy*($j+1)}] [expr {$zl+$dz*$m}] [expr {$zl+$dz*($m+1)}]]			
-				set selection [atomselect top "$bin and $atomSelection"]
+				set selection [atomselect top "$bin and {$atomSelection}"]
 				set sum_frame 0
 				set frameNub 0	
 				set n [molinfo top get numframes]
@@ -365,6 +375,7 @@ if {[string equal -nocase $type mass_yz]} {
 		set filename [format "$file_1-$type -%d-%d-%.3f-%.3f" $firstFrame $lastFrame [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]
 		set writefile [open $filename.dat w+]
 		puts $writefile "------Number density on XY plane (unit:/nm^3)------"
+		puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 		puts $writefile [format "dx = %.3f, dy = %.3f, dz = %.3f" $dx $dy $dz]
 		puts $writefile "xpos   ypos   zpos   numberDensity"
 		puts "------Number density on XY plane (unit:/nm^3)------"
@@ -375,7 +386,7 @@ if {[string equal -nocase $type mass_yz]} {
 				set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 						[expr {$xl+$dx*$m}] [expr {$xl+$dx*($m+1)}] [expr {$yl+$dy*$k}] \
 						[expr {$yl+$dy*($k+1)}] [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}]]			
-				set selection [atomselect top "$bin and $atomSelection"]
+				set selection [atomselect top "$bin and {$atomSelection}"]
 				set sum_frame 0
 				set frameNub 0	
 				set n [molinfo top get numframes]
@@ -408,6 +419,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Number density on X axis (unit:/nm^3)------"
+	puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 	puts $writefile [format "dx = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
 					 zl = %.3f, zh = %.3f" $dx $xl $xh $yl $yh $zl $zh]
 	puts $writefile "xpos  numberDensity"
@@ -418,7 +430,7 @@ if {[string equal -nocase $type mass_yz]} {
 	for {set j 0} {$j<$xr} {incr j 1} {
 		set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 				[expr {$xl+$dx*$j}] [expr {$xl+$dx*($j+1)}] $yl $yh $zl $zh]			
-		set selection [atomselect top "$bin and $atomSelection"]
+		set selection [atomselect top "$bin and {$atomSelection}"]
 		set sum_frame 0
 		set frameNub 0
 		set n [molinfo top get numframes]
@@ -447,6 +459,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Number density on Y axis (unit:/nm^3)------"
+	puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 	puts $writefile [format "dy = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
 					 zl = %.3f, zh = %.3f" $dy $xl $xh $yl $yh $zl $zh]
 	puts $writefile "ypos  numberDensity"
@@ -457,7 +470,7 @@ if {[string equal -nocase $type mass_yz]} {
 	for {set j 0} {$j<$yr} {incr j 1} {
 		set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 				$xl $xh [expr {$yl+$dy*$j}] [expr {$yl+$dy*($j+1)}]  $zl $zh]			
-		set selection [atomselect top "$bin and $atomSelection"]
+		set selection [atomselect top "$bin and {$atomSelection}"]
 		set sum_frame 0
 		set frameNub 0
 		set n [molinfo top get numframes]
@@ -486,6 +499,7 @@ if {[string equal -nocase $type mass_yz]} {
 	set filename [format "$file_1-$type-%d-%d" $firstFrame $lastFrame]
 	set writefile [open $filename.dat w+]
 	puts $writefile "------Number density on Z axis (unit:/nm^3)------"
+	puts $writefile "dc $file_1 $file_2 $type $firstFrame $lastFrame $step $xl $xh $xr $yl $yh $yr $zl $zh $zr {$atomSelection}"
 	puts $writefile [format "dz = %.3f, xl = %.3f, xh = %.3f, yl = %.3f, yh = %.3f, \
 					 zl = %.3f, zh = %.3f" $dz $xl $xh $yl $yh $zl $zh]
 	puts $writefile "zpos  numberDensity"
@@ -496,7 +510,7 @@ if {[string equal -nocase $type mass_yz]} {
 	for {set j 0} {$j<$zr} {incr j 1} {
 		set bin [format "x>%.3f and x<%.3f and y>%.3f and y<%.3f and z>%.3f and z<%.3f" \
 				$xl $xh $yl $yh [expr {$zl+$dz*$j}] [expr {$zl+$dz*($j+1)}] ]			
-		set selection [atomselect top "$bin and $atomSelection"]
+		set selection [atomselect top "$bin and {$atomSelection}"]
 		set sum_frame 0
 		set frameNub 0
 		set n [molinfo top get numframes]
