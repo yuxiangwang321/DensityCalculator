@@ -43,3 +43,7 @@ The generated files now have names starting with the input file name, such as "b
 ~~~~~~~~~~~~~~~~~~~ May 05, 2022 ~~~~~~~~~~~~~~~~~~~
 Tips for issues
 If a file cannot be read by the code, try to change the file name, like this: trjtrajall0.lammpstrj to test.lammpstrj, sometimes the code may give error for long or unusual file names.
+
+~~~~~~~~~~~~~~~~~~~ February 16, 2024 ~~~~~~~~~~~~~~~~~~~
+Fix one error: calculation on number_xz mode. The previous code in this mode will enter a wrong loop in Y direction, and produce many calculation results in different Y segments. Now fixed.
+
