@@ -47,3 +47,11 @@ If a file cannot be read by the code, try to change the file name, like this: tr
 ~~~~~~~~~~~~~~~~~~~ February 16, 2024 ~~~~~~~~~~~~~~~~~~~
 Fix one error: calculation on number_xz mode. The previous code in this mode will enter a wrong loop in Y direction, and produce many calculation results in different Y segments. Now fixed.
 
+~~~~~~~~~~~~~~~~~~~ June 17, 2024 ~~~~~~~~~~~~~~~~~~~
+Fix one error: Thanks user fcvl who identified one error and proposed a way to fix it, see email from fcvl below:
+	Your code have a bug：when calculate the totalNumber use "set totalNumber [expr {$sum_frame/$frameNub+$totalNumber}]", the variable totalNumber is a integer, it will ignore the fractional 	part of the result of $sum_frame/$frameNub in every loop. So, the larger xr, yr and zr, there will be a greater error of totalNumber.
+	if convert $sum_frame in to double, the bug can be fixed.
+Now, the error has been fixed as suggested (changing "set sum_frame 0" to "set sum_frame 0.0").
+
+One more change: adding one input parameter, outputName, this means the users now can specify their own names for the outputfiles (not named by the code), this would facilitate the batch processing when they want to use variables to assign the outputfile names. Now the input format is "{file_1 file_2 outputName type firstFrame lastFrame step xl xh xr yl yh yr zl zh zr atomSelection}"
+
